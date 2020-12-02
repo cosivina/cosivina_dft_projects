@@ -29,6 +29,8 @@ sim.addElement(RunningHistory('history trial', fieldSize, t_max, 1), 'field u', 
 sim.addElement(BoostStimulus('stimulus s_1', 0), 'stimulus s_1', 'output', 'field u');
 sim.addElement(RunningHistory('history s_1', [1, 1], historyDuration, samplingHistory), 'stimulus s_1');
 
+
+
 %% settings for element list in advanced parameter panel
 
 elementGroups = sim.elementLabels;
@@ -54,7 +56,6 @@ end
 
 i = 1;
 while i <= length(elementGroups)
-    %if ~isempty(elementGroups{i})
     same = strcmp(elementGroups{i}, elementGroups);
     elementsInGroup{i} = elementsInGroup(same);
     same(find(same, 1)) = 0;
