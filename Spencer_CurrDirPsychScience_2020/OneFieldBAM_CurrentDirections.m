@@ -25,7 +25,7 @@ StimStr=5; %stimulus strength
 % mode control
 mode = 1; % 0 for batch mode, 1 for auto mode with visualization, 2 for multicore (also need to switch to 'parfor' below)
 n_reps = 1; % repetitions for batch mode, overwritten to 1 for auto
-n_trials = 3; %1 for Fig1 simulations; 30 for Fig2 simulations 
+n_trials = 30; %1 for Fig1 simulations; 30 for Fig2 simulations 
 
 % simulator options
 plotResults = 0; %set to 1 if final mesh shadow plot desired

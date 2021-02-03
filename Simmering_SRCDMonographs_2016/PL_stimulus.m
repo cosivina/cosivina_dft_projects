@@ -1,0 +1,133 @@
+%no-change (NC) stream
+ct_stim_NC=SS;
+stim_NC_pos=stim_order(round(1+rand*362880),:);
+stim_NC_str=[stim_str,stim_str,stim_str,stim_str,stim_str,stim_str]; %SS6 max
+stim_NC_width=[stim_width,stim_width,stim_width,stim_width,stim_width,stim_width]; %SS6 max
+stim_NC_input = zeros(n_stream_events+1,n_field);
+
+for event=1:(n_stream_events+1)
+    for item=1:SS
+        stim_NC_input(event,:)=stim_NC_input(event,:)+gauss(n_field-1,(fix(stim_NC_pos(item)*D2U)+C)-1,stim_NC_str(item),stim_NC_width(item),0);
+    end
+end
+
+%change (CH) stream
+ct_stim_CH=SS;
+stim_CH_str=stim_NC_str;
+stim_CH_width=stim_NC_width;
+if SS==2
+    stim_CH_pos1=[stim_NC_pos(1,9),stim_NC_pos(1,3)];
+    stim_CH_pos2=[stim_NC_pos(1,8),stim_NC_pos(1,3)];
+    stim_CH_pos3=[stim_NC_pos(1,8),stim_NC_pos(1,2)];
+    stim_CH_pos4=[stim_NC_pos(1,4),stim_NC_pos(1,2)];
+    stim_CH_pos5=[stim_NC_pos(1,4),stim_NC_pos(1,1)];
+    stim_CH_pos6=[stim_NC_pos(1,5),stim_NC_pos(1,1)];
+    stim_CH_pos7=[stim_NC_pos(1,5),stim_NC_pos(1,7)];
+    stim_CH_pos8=[stim_NC_pos(1,6),stim_NC_pos(1,7)];
+    stim_CH_pos9=[stim_NC_pos(1,6),stim_NC_pos(1,5)];
+    stim_CH_pos10=[stim_NC_pos(1,3),stim_NC_pos(1,5)];
+    stim_CH_pos11=[stim_NC_pos(1,3),stim_NC_pos(1,1)];
+    stim_CH_pos12=[stim_NC_pos(1,9),stim_NC_pos(1,1)];
+    stim_CH_pos13=[stim_NC_pos(1,9),stim_NC_pos(1,2)];
+    stim_CH_pos14=[stim_NC_pos(1,5),stim_NC_pos(1,2)];
+    stim_CH_pos15=[stim_NC_pos(1,5),stim_NC_pos(1,6)];
+    stim_CH_pos16=[stim_NC_pos(1,7),stim_NC_pos(1,6)];
+    stim_CH_pos17=[stim_NC_pos(1,7),stim_NC_pos(1,8)];
+    stim_CH_pos18=[stim_NC_pos(1,9),stim_NC_pos(1,8)];
+    stim_CH_pos19=[stim_NC_pos(1,9),stim_NC_pos(1,1)];
+    stim_CH_pos20=[stim_NC_pos(1,4),stim_NC_pos(1,1)];
+    stim_CH_pos21=[stim_NC_pos(1,4),stim_NC_pos(1,3)];
+    stim_CH_pos22=[stim_NC_pos(1,5),stim_NC_pos(1,3)];
+    stim_CH_pos23=[stim_NC_pos(1,5),stim_NC_pos(1,2)];
+    stim_CH_pos24=[stim_NC_pos(1,7),stim_NC_pos(1,2)];
+    stim_CH_pos25=[stim_NC_pos(1,7),stim_NC_pos(1,6)];
+    stim_CH_pos26=[stim_NC_pos(1,1),stim_NC_pos(1,6)];
+    stim_CH_pos27=[stim_NC_pos(1,1),stim_NC_pos(1,9)];
+elseif SS==4
+    stim_CH_pos1=[stim_NC_pos(1,9),stim_NC_pos(1,8),stim_NC_pos(1,7),stim_NC_pos(1,6)];
+    stim_CH_pos2=[stim_NC_pos(1,3),stim_NC_pos(1,8),stim_NC_pos(1,7),stim_NC_pos(1,6)];
+    stim_CH_pos3=[stim_NC_pos(1,3),stim_NC_pos(1,5),stim_NC_pos(1,7),stim_NC_pos(1,6)];
+    stim_CH_pos4=[stim_NC_pos(1,3),stim_NC_pos(1,5),stim_NC_pos(1,9),stim_NC_pos(1,6)];
+    stim_CH_pos5=[stim_NC_pos(1,3),stim_NC_pos(1,5),stim_NC_pos(1,9),stim_NC_pos(1,4)];
+    stim_CH_pos6=[stim_NC_pos(1,8),stim_NC_pos(1,5),stim_NC_pos(1,9),stim_NC_pos(1,4)];
+    stim_CH_pos7=[stim_NC_pos(1,8),stim_NC_pos(1,1),stim_NC_pos(1,9),stim_NC_pos(1,4)];
+    stim_CH_pos8=[stim_NC_pos(1,8),stim_NC_pos(1,1),stim_NC_pos(1,5),stim_NC_pos(1,4)];
+    stim_CH_pos9=[stim_NC_pos(1,8),stim_NC_pos(1,1),stim_NC_pos(1,5),stim_NC_pos(1,6)];
+    stim_CH_pos10=[stim_NC_pos(1,7),stim_NC_pos(1,1),stim_NC_pos(1,5),stim_NC_pos(1,6)];
+    stim_CH_pos11=[stim_NC_pos(1,7),stim_NC_pos(1,2),stim_NC_pos(1,5),stim_NC_pos(1,6)];
+    stim_CH_pos12=[stim_NC_pos(1,7),stim_NC_pos(1,2),stim_NC_pos(1,8),stim_NC_pos(1,6)];
+    stim_CH_pos13=[stim_NC_pos(1,7),stim_NC_pos(1,2),stim_NC_pos(1,8),stim_NC_pos(1,9)];
+    stim_CH_pos14=[stim_NC_pos(1,3),stim_NC_pos(1,2),stim_NC_pos(1,8),stim_NC_pos(1,9)];
+    stim_CH_pos15=[stim_NC_pos(1,3),stim_NC_pos(1,5),stim_NC_pos(1,8),stim_NC_pos(1,9)];
+    stim_CH_pos16=[stim_NC_pos(1,3),stim_NC_pos(1,5),stim_NC_pos(1,7),stim_NC_pos(1,9)];
+    stim_CH_pos17=[stim_NC_pos(1,3),stim_NC_pos(1,5),stim_NC_pos(1,7),stim_NC_pos(1,4)];
+    stim_CH_pos18=[stim_NC_pos(1,6),stim_NC_pos(1,5),stim_NC_pos(1,7),stim_NC_pos(1,4)];
+    stim_CH_pos19=[stim_NC_pos(1,6),stim_NC_pos(1,9),stim_NC_pos(1,7),stim_NC_pos(1,4)];
+    stim_CH_pos20=[stim_NC_pos(1,6),stim_NC_pos(1,9),stim_NC_pos(1,1),stim_NC_pos(1,4)];
+    stim_CH_pos21=[stim_NC_pos(1,6),stim_NC_pos(1,9),stim_NC_pos(1,1),stim_NC_pos(1,8)];
+    stim_CH_pos22=[stim_NC_pos(1,5),stim_NC_pos(1,9),stim_NC_pos(1,1),stim_NC_pos(1,8)];
+    stim_CH_pos23=[stim_NC_pos(1,5),stim_NC_pos(1,7),stim_NC_pos(1,1),stim_NC_pos(1,8)];
+    stim_CH_pos24=[stim_NC_pos(1,5),stim_NC_pos(1,7),stim_NC_pos(1,2),stim_NC_pos(1,8)];
+    stim_CH_pos25=[stim_NC_pos(1,5),stim_NC_pos(1,7),stim_NC_pos(1,2),stim_NC_pos(1,3)];
+    stim_CH_pos26=[stim_NC_pos(1,1),stim_NC_pos(1,7),stim_NC_pos(1,2),stim_NC_pos(1,3)];
+    stim_CH_pos27=[stim_NC_pos(1,1),stim_NC_pos(1,4),stim_NC_pos(1,2),stim_NC_pos(1,3)];
+elseif SS==6
+    stim_CH_pos1=[stim_NC_pos(1,9),stim_NC_pos(1,8),stim_NC_pos(1,7),stim_NC_pos(1,6),stim_NC_pos(1,5),stim_NC_pos(1,4)];
+    stim_CH_pos2=[stim_NC_pos(1,9),stim_NC_pos(1,8),stim_NC_pos(1,1),stim_NC_pos(1,6),stim_NC_pos(1,5),stim_NC_pos(1,4)];
+    stim_CH_pos3=[stim_NC_pos(1,9),stim_NC_pos(1,3),stim_NC_pos(1,1),stim_NC_pos(1,5),stim_NC_pos(1,5),stim_NC_pos(1,4)];
+    stim_CH_pos4=[stim_NC_pos(1,9),stim_NC_pos(1,3),stim_NC_pos(1,1),stim_NC_pos(1,5),stim_NC_pos(1,5),stim_NC_pos(1,8)];
+    stim_CH_pos5=[stim_NC_pos(1,9),stim_NC_pos(1,3),stim_NC_pos(1,2),stim_NC_pos(1,4),stim_NC_pos(1,5),stim_NC_pos(1,8)];
+    stim_CH_pos6=[stim_NC_pos(1,9),stim_NC_pos(1,3),stim_NC_pos(1,2),stim_NC_pos(1,4),stim_NC_pos(1,5),stim_NC_pos(1,8)];
+    stim_CH_pos7=[stim_NC_pos(1,9),stim_NC_pos(1,6),stim_NC_pos(1,2),stim_NC_pos(1,4),stim_NC_pos(1,5),stim_NC_pos(1,8)];
+    stim_CH_pos8=[stim_NC_pos(1,3),stim_NC_pos(1,6),stim_NC_pos(1,2),stim_NC_pos(1,4),stim_NC_pos(1,5),stim_NC_pos(1,8)];
+    stim_CH_pos9=[stim_NC_pos(1,3),stim_NC_pos(1,6),stim_NC_pos(1,2),stim_NC_pos(1,4),stim_NC_pos(1,5),stim_NC_pos(1,7)];
+    stim_CH_pos10=[stim_NC_pos(1,3),stim_NC_pos(1,6),stim_NC_pos(1,1),stim_NC_pos(1,4),stim_NC_pos(1,5),stim_NC_pos(1,7)];
+    stim_CH_pos11=[stim_NC_pos(1,3),stim_NC_pos(1,6),stim_NC_pos(1,1),stim_NC_pos(1,4),stim_NC_pos(1,5),stim_NC_pos(1,9)];
+    stim_CH_pos12=[stim_NC_pos(1,8),stim_NC_pos(1,6),stim_NC_pos(1,1),stim_NC_pos(1,4),stim_NC_pos(1,5),stim_NC_pos(1,9)];
+    stim_CH_pos13=[stim_NC_pos(1,8),stim_NC_pos(1,6),stim_NC_pos(1,1),stim_NC_pos(1,2),stim_NC_pos(1,5),stim_NC_pos(1,9)];
+    stim_CH_pos14=[stim_NC_pos(1,8),stim_NC_pos(1,7),stim_NC_pos(1,1),stim_NC_pos(1,2),stim_NC_pos(1,5),stim_NC_pos(1,9)];
+    stim_CH_pos15=[stim_NC_pos(1,8),stim_NC_pos(1,7),stim_NC_pos(1,3),stim_NC_pos(1,2),stim_NC_pos(1,5),stim_NC_pos(1,9)];
+    stim_CH_pos16=[stim_NC_pos(1,8),stim_NC_pos(1,7),stim_NC_pos(1,3),stim_NC_pos(1,2),stim_NC_pos(1,4),stim_NC_pos(1,9)];
+    stim_CH_pos17=[stim_NC_pos(1,8),stim_NC_pos(1,7),stim_NC_pos(1,3),stim_NC_pos(1,2),stim_NC_pos(1,4),stim_NC_pos(1,6)];
+    stim_CH_pos18=[stim_NC_pos(1,1),stim_NC_pos(1,7),stim_NC_pos(1,3),stim_NC_pos(1,2),stim_NC_pos(1,4),stim_NC_pos(1,6)];
+    stim_CH_pos19=[stim_NC_pos(1,1),stim_NC_pos(1,7),stim_NC_pos(1,9),stim_NC_pos(1,2),stim_NC_pos(1,4),stim_NC_pos(1,6)];
+    stim_CH_pos20=[stim_NC_pos(1,1),stim_NC_pos(1,7),stim_NC_pos(1,9),stim_NC_pos(1,5),stim_NC_pos(1,4),stim_NC_pos(1,6)];
+    stim_CH_pos21=[stim_NC_pos(1,1),stim_NC_pos(1,8),stim_NC_pos(1,9),stim_NC_pos(1,5),stim_NC_pos(1,4),stim_NC_pos(1,6)];
+    stim_CH_pos22=[stim_NC_pos(1,1),stim_NC_pos(1,8),stim_NC_pos(1,9),stim_NC_pos(1,5),stim_NC_pos(1,3),stim_NC_pos(1,6)];
+    stim_CH_pos23=[stim_NC_pos(1,2),stim_NC_pos(1,8),stim_NC_pos(1,9),stim_NC_pos(1,5),stim_NC_pos(1,3),stim_NC_pos(1,6)];
+    stim_CH_pos24=[stim_NC_pos(1,2),stim_NC_pos(1,8),stim_NC_pos(1,7),stim_NC_pos(1,5),stim_NC_pos(1,3),stim_NC_pos(1,6)];
+    stim_CH_pos25=[stim_NC_pos(1,2),stim_NC_pos(1,8),stim_NC_pos(1,7),stim_NC_pos(1,5),stim_NC_pos(1,3),stim_NC_pos(1,4)];
+    stim_CH_pos26=[stim_NC_pos(1,2),stim_NC_pos(1,8),stim_NC_pos(1,7),stim_NC_pos(1,9),stim_NC_pos(1,3),stim_NC_pos(1,4)];
+    stim_CH_pos27=[stim_NC_pos(1,2),stim_NC_pos(1,6),stim_NC_pos(1,7),stim_NC_pos(1,9),stim_NC_pos(1,3),stim_NC_pos(1,4)];
+end
+
+stim_CH_input = zeros((n_stream_events+1),n_field);
+for item=1:SS
+    stim_CH_input(1,:)=stim_CH_input(1,:)+gauss(n_field-1,(fix(stim_CH_pos1(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(2,:)=stim_CH_input(2,:)+gauss(n_field-1,(fix(stim_CH_pos2(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(3,:)=stim_CH_input(3,:)+gauss(n_field-1,(fix(stim_CH_pos3(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(4,:)=stim_CH_input(4,:)+gauss(n_field-1,(fix(stim_CH_pos4(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(5,:)=stim_CH_input(5,:)+gauss(n_field-1,(fix(stim_CH_pos5(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(6,:)=stim_CH_input(6,:)+gauss(n_field-1,(fix(stim_CH_pos6(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(7,:)=stim_CH_input(7,:)+gauss(n_field-1,(fix(stim_CH_pos7(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(8,:)=stim_CH_input(8,:)+gauss(n_field-1,(fix(stim_CH_pos8(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(9,:)=stim_CH_input(9,:)+gauss(n_field-1,(fix(stim_CH_pos9(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(10,:)=stim_CH_input(10,:)+gauss(n_field-1,(fix(stim_CH_pos10(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(11,:)=stim_CH_input(11,:)+gauss(n_field-1,(fix(stim_CH_pos11(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(12,:)=stim_CH_input(12,:)+gauss(n_field-1,(fix(stim_CH_pos12(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(13,:)=stim_CH_input(13,:)+gauss(n_field-1,(fix(stim_CH_pos13(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(14,:)=stim_CH_input(14,:)+gauss(n_field-1,(fix(stim_CH_pos14(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(15,:)=stim_CH_input(15,:)+gauss(n_field-1,(fix(stim_CH_pos15(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(16,:)=stim_CH_input(16,:)+gauss(n_field-1,(fix(stim_CH_pos16(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(17,:)=stim_CH_input(17,:)+gauss(n_field-1,(fix(stim_CH_pos17(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(18,:)=stim_CH_input(18,:)+gauss(n_field-1,(fix(stim_CH_pos18(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(19,:)=stim_CH_input(19,:)+gauss(n_field-1,(fix(stim_CH_pos19(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(20,:)=stim_CH_input(20,:)+gauss(n_field-1,(fix(stim_CH_pos20(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(21,:)=stim_CH_input(21,:)+gauss(n_field-1,(fix(stim_CH_pos21(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(22,:)=stim_CH_input(22,:)+gauss(n_field-1,(fix(stim_CH_pos22(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(23,:)=stim_CH_input(23,:)+gauss(n_field-1,(fix(stim_CH_pos23(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(24,:)=stim_CH_input(24,:)+gauss(n_field-1,(fix(stim_CH_pos24(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(25,:)=stim_CH_input(25,:)+gauss(n_field-1,(fix(stim_CH_pos25(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(26,:)=stim_CH_input(26,:)+gauss(n_field-1,(fix(stim_CH_pos26(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+    stim_CH_input(27,:)=stim_CH_input(27,:)+gauss(n_field-1,(fix(stim_CH_pos27(item)*D2U)+C)-1,stim_CH_str(item),stim_CH_width(item),0);
+end
