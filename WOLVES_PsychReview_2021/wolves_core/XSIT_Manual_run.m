@@ -4,6 +4,15 @@ close all; clear all;
 %To run a gui simulation only, set variable mode = 1 (below) and use 'for' subjects loop in the experiment file
 mode = 2;%1 = auto/gui, 0 = singlebatch; 2 for multicore batch mode (also need to switch to 'parfor' in the experiment file)
 
+%% sample code needed to run simulator on a high performance cluster
+HPC = 0;
+if HPC
+    run('../../../COSIVINA/setpath.m') % add cosivina and jsoblab files to the matlab path
+    addpath(genpath('../../WOLVES_PsychReview_2021'));
+    cd('../') % move from the wolves_core folder where you'll launch the job to the main folder
+    parpool('SlurmProfile1',96) %this will be HPC-specific
+end
+
 gui_speed=15; %update gui after every n iterations: ideal values from 1 to 20.
 notes = ['any notes you want to take specific to this simulation'];% notes about any variable changes  
 simNamePar = ['WPR_']; % give a name to your simulation.
@@ -16,7 +25,7 @@ if (mode == 2), numSubjects = 300; tolerance = 0; % specify the number of simula
 else,   numSubjects = 1; tolerance = 3; simNamePar = ['gui_test']; end % tolerance is used for gui's only to ensure they don't skip equality(==)conditionals
 
 %% Update Memory Build and Decay Parameters
-parBuild=1200; parDecay=15000;
+parBuild=1200; parDecay=800;
 setMemoryTraceTimescales(sim, parBuild, parDecay);
 
 %% Choose and Run the Experiment
