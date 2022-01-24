@@ -1,0 +1,14 @@
+#!/bin/bash
+# Mail events (NONE, BEGIN, END, FAIL, ALL)
+#SBATCH --job-name=hpc-IOWA-C_job  # Set job name
+#SBATCH -o hpc-IOWA-C-%j.out  # Write job output to MatJob-(job_number).out
+#SBATCH -e hpc-IOWA-C-%j.err  # Write job error to MatJob-(job_number).err
+#SBATCH -p ib-24-96
+#SBATCH --qos=ib
+#SBATCH --time="96:00:00"
+#SBATCH --mem=60GB
+#set up environment
+module add matlab/2020a
+#run the application
+matlab -nodisplay -nosplash -singleCompThread -r IOWA_Sims2018_3
+  
