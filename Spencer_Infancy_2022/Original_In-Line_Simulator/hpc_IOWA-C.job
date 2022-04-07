@@ -6,8 +6,9 @@
 #SBATCH -p ib-24-96
 #SBATCH --qos=ib
 #SBATCH --time="96:00:00"
-#SBATCH --mem=40GB
+#SBATCH --mem=60GB
 #set up environment
 module add matlab/2020a
 #run the application
-matlab -nodisplay -nosplash -singleCompThread -r runIOWA_BAM_2022  
+matlab -nodisplay -nosplash -singleCompThread -r IOWA_Sims2018_3
+  

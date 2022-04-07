@@ -1,7 +1,6 @@
 clear;
 close all;
-%load('Sims1_2022-04-07-T134046.mat');
-load('Sims2_2022-04-07-T171005.mat');
+load('Sims2020_12020-06-13-T135211.mat');
 
 DataAccuracy
 DataLatency
