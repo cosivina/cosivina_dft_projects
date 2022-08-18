@@ -558,6 +558,17 @@ for r = 1 : nRuns % loop over runs (different paramter modifications)
                     if ~gui.pauseSimulation
                         sim2.step();
                     end
+                    if gui.loadParameters
+                        if gui.loadParametersFromFile()
+                            sim2.init();
+                            sim2.t = 1; % done manually in this file, would be better to define tZero = 1 for simulator object
+                        end
+                        gui.loadParameters = false;
+                    end
+                    if gui.saveParameters
+                        gui.saveParametersToFile();
+                        gui.saveParameters = false;
+                    end
                     if gui.quitSimulation
                         gui.close();
                         break;
