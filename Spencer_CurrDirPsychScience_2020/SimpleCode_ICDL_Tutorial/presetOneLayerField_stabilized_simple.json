@@ -1,0 +1,225 @@
+{
+	"simulator":{
+		"deltaT":1,
+		"tZero":0,
+		"nElements":12,
+		"elementLabels":[
+			"stimulus 1",
+			"stimulus 2",
+			"stimulus 3",
+			"stimulus sum",
+			"field u",
+			"mem u",
+			"u -> u",
+			"mem u -> u",
+			"noise",
+			"noise kernel",
+			"stimulus s_1",
+			"history trial"
+		],
+		"elements":[
+			{
+				"label":"stimulus 1",
+				"class":"GaussStimulus1D",
+				"param":{
+					"size":[1,100],
+					"sigma":5,
+					"amplitude":0,
+					"position":25,
+					"circular":1,
+					"normalized":0
+				},
+				"nInputs":0,
+				"input":[]
+			},
+			{
+				"label":"stimulus 2",
+				"class":"GaussStimulus1D",
+				"param":{
+					"size":[1,100],
+					"sigma":5,
+					"amplitude":0,
+					"position":50,
+					"circular":1,
+					"normalized":0
+				},
+				"nInputs":0,
+				"input":[]
+			},
+			{
+				"label":"stimulus 3",
+				"class":"GaussStimulus1D",
+				"param":{
+					"size":[1,100],
+					"sigma":5,
+					"amplitude":0,
+					"position":75,
+					"circular":1,
+					"normalized":0
+				},
+				"nInputs":0,
+				"input":[]
+			},
+			{
+				"label":"stimulus sum",
+				"class":"SumInputs",
+				"param":{
+					"size":[1,100]
+				},
+				"nInputs":3,
+				"input":[
+					{
+						"label":"stimulus 1",
+						"component":"output"
+					},
+					{
+						"label":"stimulus 2",
+						"component":"output"
+					},
+					{
+						"label":"stimulus 3",
+						"component":"output"
+					}
+				]
+			},
+			{
+				"label":"field u",
+				"class":"NeuralField",
+				"param":{
+					"size":[1,100],
+					"tau":20,
+					"h":-5,
+					"beta":4
+				},
+				"nInputs":5,
+				"input":[
+					{
+						"label":"stimulus sum",
+						"component":"output"
+					},
+					{
+						"label":"u -> u",
+						"component":"output"
+					},
+					{
+						"label":"mem u -> u",
+						"component":"output"
+					},
+					{
+						"label":"noise kernel",
+						"component":"output"
+					},
+					{
+						"label":"stimulus s_1",
+						"component":"output"
+					}
+				]
+			},
+			{
+				"label":"mem u",
+				"class":"MemoryTrace",
+				"param":{
+					"size":[1,100],
+					"tauBuild":1000,
+					"tauDecay":100000,
+					"threshold":0.5
+				},
+				"nInputs":1,
+				"input":{
+					"label":"field u",
+					"component":"output"
+				}
+			},
+			{
+				"label":"u -> u",
+				"class":"LateralInteractions1D",
+				"param":{
+					"size":[1,100],
+					"sigmaExc":5,
+					"amplitudeExc":24,
+					"sigmaInh":10,
+					"amplitudeInh":17,
+					"amplitudeGlobal":-0.05,
+					"circular":1,
+					"normalized":1,
+					"cutoffFactor":5
+				},
+				"nInputs":1,
+				"input":{
+					"label":"field u",
+					"component":"output"
+				}
+			},
+			{
+				"label":"mem u -> u",
+				"class":"GaussKernel1D",
+				"param":{
+					"size":[1,100],
+					"sigma":5,
+					"amplitude":1,
+					"circular":true,
+					"normalized":true,
+					"cutoffFactor":5
+				},
+				"nInputs":1,
+				"input":{
+					"label":"mem u",
+					"component":"output"
+				}
+			},
+			{
+				"label":"noise",
+				"class":"NormalNoise",
+				"param":{
+					"size":[1,100],
+					"amplitude":1
+				},
+				"nInputs":0,
+				"input":[]
+			},
+			{
+				"label":"noise kernel",
+				"class":"GaussKernel1D",
+				"param":{
+					"size":[1,100],
+					"sigma":0,
+					"amplitude":2,
+					"circular":1,
+					"normalized":1,
+					"cutoffFactor":5
+				},
+				"nInputs":1,
+				"input":{
+					"label":"noise",
+					"component":"output"
+				}
+			},
+			{
+				"label":"stimulus s_1",
+				"class":"BoostStimulus",
+				"param":{
+					"amplitude":0
+				},
+				"nInputs":1,
+				"input":{
+					"label":"stimulus s_1",
+					"component":"output"
+				}
+			},
+			{
+				"label":"history trial",
+				"class":"RunningHistory",
+				"param":{
+					"size":[1,100],
+					"timeSlots":800,
+					"interval":1
+				},
+				"nInputs":1,
+				"input":{
+					"label":"field u",
+					"component":"activation"
+				}
+			}
+		]
+	}
+}

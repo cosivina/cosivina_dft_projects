@@ -168,7 +168,8 @@ if mode == 1
     keepFullResults = false;%
     saveResults =false;%
     storeHistory = true;
-    conditions = [DOUBLE_CUE, INVALID_CUE, NO_CUE, TONE_CUE, VALID_CUE, CDOUBLE_CUE, CINVALID_CUE, CNO_CUE, CTONE_CUE, CVALID_CUE];
+    %conditions = [DOUBLE_CUE, INVALID_CUE, NO_CUE, TONE_CUE, VALID_CUE, CDOUBLE_CUE, CINVALID_CUE, CNO_CUE, CTONE_CUE, CVALID_CUE];
+    conditions = [VALID_CUE, INVALID_CUE, DOUBLE_CUE, TONE_CUE, NO_CUE, CVALID_CUE, CINVALID_CUE, CDOUBLE_CUE, CTONE_CUE, CNO_CUE];
     ages = [INFANT_10MO]; 
     nRepeats = 1; %400;
     noise = true;
