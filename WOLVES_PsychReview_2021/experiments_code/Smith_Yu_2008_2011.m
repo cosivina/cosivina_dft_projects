@@ -10,7 +10,8 @@ History_Reset;
 sim.init();
 Gui_History_Reset;
 
-parfor subject = 1:numSubjects % change to parfor for mode = 2 
+for subject = 1:numSubjects % change to parfor for mode = 2 
+%parfor subject = 1:numSubjects % change to parfor for mode = 2 
     
     sim2 = 5;
     if (mode == 1 )             

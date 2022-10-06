@@ -2,7 +2,7 @@ close all; clear all;
 
 %% To run a batch of simulations on a HPC/ multicore pc, set variable mode = 2 (below) and use 'parfor' subjects loop in the experiment file
 %To run a gui simulation only, set variable mode = 1 (below) and use 'for' subjects loop in the experiment file
-mode = 2;%1 = auto/gui, 0 = singlebatch; 2 for multicore batch mode (also need to switch to 'parfor' in the experiment file)
+mode = 1;%1 = auto/gui, 0 = singlebatch; 2 for multicore batch mode (also need to switch to 'parfor' in the experiment file)
 
 %% sample code needed to run simulator on a high performance cluster
 HPC = 0;
