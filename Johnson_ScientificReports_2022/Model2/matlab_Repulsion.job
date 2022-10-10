@@ -1,0 +1,16 @@
+#!/bin/bash
+# Mail events (NONE, BEGIN, END, FAIL, ALL)
+#SBATCH --mail-type=END,FAIL   
+#SBATCH --mail-user=nfb15zpu@uea.ac.uk    
+#SBATCH --job-name=matlab-Repulsion_job  # Set job name
+#SBATCH -o matlab-Repulsion-%j.out  # Write job output to MatJob-(job_number).out
+#SBATCH -e matlab-Repulsion-%j.err  # Write job error to MatJob-(job_number).err
+#SBATCH -p ib-24-96
+#SBATCH --qos=ib
+#SBATCH --time="96:00:00"
+#SBATCH --mem=40GB
+#set up environment
+module add matlab/2020a
+#run the application
+matlab -nodisplay -nosplash -singleCompThread -r launcherRepulsionBAM_V2
+  
