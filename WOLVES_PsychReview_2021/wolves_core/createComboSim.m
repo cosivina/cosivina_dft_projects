@@ -1,7 +1,7 @@
 %% setting up the architecture (fields, interactions, and inputs)
 
 scale_factor = 8; % Each simulation timestep equals 8 real-time milliseconds 
-historyDuration = floor((1000+1000)/scale_factor);%Simulation time training; + a gap of 1 sec between every two trials%
+historyDuration = floor((4000+1000)/scale_factor);%Simulation time training; + a gap of 1 sec between every two trials%
 historyDuration2 = floor((8000+1000)/scale_factor); %Simulation time test trials + a gap of 1 sec between every two trials
 
 % create simulator object
