@@ -50,12 +50,12 @@ for i=1:2
     %% Raw Data File Name 
     if i==1
         label=SIM_TYPE{1};
-        simName = 'wPPR_noisewmf2_iors13_12h50h_Silent_Mather_Schafer_Houston_Price_results';
+        simName = 'WPR_Silent_MSHP_Exp1_2011_results';
         xsit_result = load (simName);
         % CHECK IF FILES ARE THERE % if not( exist(simName, 'file') == 2), disp(simName);  end                       
     else%if i==2
         label=SIM_TYPE{2};
-        simName = 'wPPR_noisewmf2_iors13_12h50h_Labelling_Mather_Schafer_Houston_Price_results';
+        simName = 'WPR_Labelling_MSHP_Exp1_2011_results';
         xsit_result = load (simName); 
     end
     legendInfo{i}= label;
@@ -149,13 +149,14 @@ mean_i =  novelty_pref_sim_mean;
 SE_i = novelty_pref_sim_SE;
 measurement_i = 'novelty preference';
 RMSE_young = RMSE(empirical_mean_young, mean_i);MAPE_young = MAPE(empirical_mean_young, mean_i);
+xx=['RMSE_young = ', num2str(RMSE_young),' and ', 'MAPE_young = ', num2str(MAPE_young)]; disp(xx);
 RMSE_old = RMSE(empirical_mean_old, mean_i);MAPE_old = MAPE(empirical_mean_old, mean_i);
-xx=['RMSE = ', num2str(RMSE_i),' and ', 'MAPE = ', num2str(MAPE_i)]; disp(xx);
+xx=['RMSE_old = ', num2str(RMSE_old),' and ', 'MAPE_old = ', num2str(MAPE_old)]; disp(xx);
 row_i = {measurement_i, num2str(mean_i), num2str(SE_i), RMSE_young, MAPE_young,RMSE_old,MAPE_old}; T = [T; row_i];
 
 
-%% write table T to output csv file
-writetable(T,['MSHF_Exp1_2011_'  'Analysis3.csv'])
+%% write table T to output csv file% Name your output file
+writetable(T,[simName  '_Analysis.csv'])
 
 
 

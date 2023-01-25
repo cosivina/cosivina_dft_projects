@@ -10,7 +10,7 @@ plotStyle = {'k-o','b-+','g-*','c-x','r-s','m-d','y->','k:o','b:+','g:*','c:x','
 Measure = {}; Mean = {}; Standard_Error = {}; RMSE_val = [];  MAPE_val = [];
 T = table (Measure, Mean, RMSE_val, MAPE_val);
 %Experiment (Task) Variables
-simName = 'wPPR_12h60h_known25_Mather_Plunkett_2012_results'
+simName = 'WPR_Mather_Plunkett_Exp1_2012_results'
 xsit_result = load (simName);
 nObjects = 2;%%total number of objects 
 nBlocks=2;nTrials=3;nFeatures=2;repeats=nTrials/nObjects;  %check with auto file
@@ -87,12 +87,12 @@ sim_prefK2P_pre = squeeze(nanmean(squeeze(nanmean(propKnown(:,:,1:500),1)),1)/(s
 
 mean_i = [sim_prefN2P_pre sim_prefN2P_post sim_prefN2K_pre sim_prefN2K_post sim_prefK2P_pre];
 
-measurement_i = "proportion of subjects looking";
+measurement_i = 'proportion of subjects looking';
 RMSE_i = RMSE(empirical_mean_i, mean_i);MAPE_i = MAPE(empirical_mean_i, mean_i);
 xx=['RMSE = ', num2str(RMSE_i),' and ', 'MAPE = ', num2str(MAPE_i)]; disp(xx);
 row_i = {measurement_i, num2str(mean_i),  RMSE_i, MAPE_i}; T = [T; row_i];
 
 %% write table T to output csv file
-writetable(T,[simName 'Analysis.csv'])
+writetable(T,[simName '_Analysis.csv'])
 
 

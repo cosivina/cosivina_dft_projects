@@ -11,6 +11,8 @@ for subject=1:numSubjects
        disp(subject);
        continue;
    end
+end
+for subject=1:numSubjects
     try
         OutName2 = [simName,num2str(subject),'_test.mat'];
         tempTst=load(OutName2);
