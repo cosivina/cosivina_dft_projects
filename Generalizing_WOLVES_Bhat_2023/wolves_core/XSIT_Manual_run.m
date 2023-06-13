@@ -35,73 +35,7 @@ setNoveltySpecificNoiseParams(sim, noise_ior_s, noise_wm_f);
 %% Choose and Run the Experiment
 taskvar = 14; %update taskvar value to simulate correspoding task/experiment from below: default Smith & Yu (2008,11)
 
-if (taskvar==1)
-    %% Task - Smith & Yu, Dev Sci, 2008 - Yu & Smith, Dev Sci, 2011 - Infants - standard cross-sit
-    taskName = 'Smith_Yu_2008_2011';
-    simName = [simNamePar,taskName,'_'];
-    Smith_Yu_2008_2011;   
-elseif (taskvar==3)
-    %% Trueswell Medina Hafri & Gleitman Cognitive Psychology(2013) - Adults - Eyetracking
-    taskName = 'Trueswell_Medina_Hafri_Gleitman_2013';
-    simName = [simNamePar,taskName,'_'];
-    Trueswell_Medina_Hafri_Gleitman_2013;
-elseif (taskvar==402)
-    %% Task - Yu & Smith, Psychological Science (2007) - Adults - Referrent frequency 2x2 condition
-     taskName = 'Yu_Smith_Two_2007';
-     simName = [simNamePar,taskName,'_'];
-     Yu_Smith_Two_2007;
-elseif (taskvar==403)
-    %% Task - Yu & Smith, Psychological Science (2007) - Adults - Referrent frequency 3x3 condition    
-    taskName = 'Yu_Smith_Three_2007';
-    simName = [simNamePar,taskName,'_'];
-    Yu_Smith_Three_2007;
- elseif (taskvar==404)
-    %% Task - Yu & Smith, Psychological Science (2007) - Adults - Referrent frequency 4x4 condition         
-    taskName = 'Yu_Smith_Four_2007';
-    simName = [simNamePar,taskName,'_'];
-    Yu_Smith_Four_2007;
-elseif (taskvar==5)
-    %% Yu Zhong & Fricker, Frontiers in Psychology(2012) - Adults - Eyetracking
-    taskName = 'Yu_Zhong_Fricker_2012';
-    simName = [simNamePar,taskName,'_'];
-    Yu_Zhong_Fricker_2012;  
-elseif (taskvar==6)
-    %% Task - Yurovsky_Yu_Smith, Cognitive Science (2013) - Adults - Competitive Processes
-    taskName = 'Yurovsky_Yu_Smith_2013';
-    simName = [simNamePar,taskName,'_'];
-    Yurovsky_Yu_Smith_2013; % use 300x3 conditions numSubjects 
-elseif (taskvar==7)
-    %% Task - Kachergis_Yu_Shiffrin, Psychon Bull Rev (2012) - Adults- Prior Learning, ME
-    taskName = 'Kachergis_Yu_Shiffrin_2012_11AFC';
-    simName = [simNamePar,taskName,'_'];
-    Kachergis_Yu_Shiffrin_2012_11AFC; % use 300x12 conditions numSubjects 
-elseif (taskvar==8)
-    %% Task - Smith & Yu, Lang Learn Dev, (2013) - Infants - novelty trap
-    taskName = 'Smith_Yu_2013';
-    simName = [simNamePar,taskName,'_'];
-    Smith_Yu_2013;
-elseif (taskvar==9)
-    %% Tasks - Vlach & Johnson, Cognition (2013); Vlach & DeBrock, JML, (2017)
-    %% Vlach & DeBrock, JEP:LMC (2019) - Infants - massed vs interleaved
-    taskName = 'Vlach_CSWL_2013_17_19';
-    simName = [simNamePar,taskName,'_'];
-    Vlach_CSWL_2013_17_19;
-elseif (taskvar==11)
-    %% Task - Vlach & DeBrock, JML, 2017 - Infants - CSWL vs Memory tests
-    taskName = 'Vlach_DeBrock_WOB_2017';
-    simName = [simNamePar,taskName,'_'];
-    Vlach_DeBrock_WOB_2017;% run this & Taskvar 9 on multiple tau_Decay values
-elseif (taskvar==12)
-    %% Task - Suanda_Mugwanya_Namy, Jrl Exp Child Psy (2014) - 6 year olds - Referential Ambiguity
-    taskName = 'Suanda_Mugwanya_Namy_2014';
-    simName = [simNamePar,taskName,'_'];
-    Suanda_Mugwanya_Namy_2014; % use 300x3 conditions numSubjects 
-elseif (taskvar==13)
-    %% Task - Fitneva & Christiansen, Cognitive Science (2015) - Partial Knowledge, Initial Accuracy
-    taskName = 'Fitneva_Christiansen_2015';
-    simName = [simNamePar,taskName,'_'];
-    Fitneva_Christiansen_2015; % use 300x2 conditions numSubjects
-elseif (taskvar==14)
+if (taskvar==14)
     %% Mather, Schafer & Houston_Price,British Journal of Dev Psy (2011) - Infants - Eyetracking - Fam vs Novel objects/label vs not
     taskName = 'MSHP_Exp1_2011';
     Labelling_condition_ON = 0;%%set to 0 for Silent condition, 1 for Labelling 
