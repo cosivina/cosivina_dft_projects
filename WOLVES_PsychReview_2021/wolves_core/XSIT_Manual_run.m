@@ -16,7 +16,7 @@ end
 gui_speed=15; %update gui after every n iterations: ideal values from 1 to 20.
 notes = ['any notes you want to take specific to this simulation'];% notes about any variable changes  
 simNamePar = ['WPR_']; % give a name to your simulation.
-sim_seed = rng('shuffle'); %get seed for reproducibility, use rng(sim_seed) for reproduction
+%sim_seed = rng('shuffle'); %get seed for reproducibility, use rng(sim_seed) for reproduction
 createComboSim; %%%create the model, for Kachergis et al task (taskvar==7) change to, createComboSimKachergis; 
 if sim.loadSettings('wolvesPaperPR.json','changeable') == 0; disp('json file load ERROR!!'); end; % loads the parameters file
 createComboGUI;% create and initialize GUI

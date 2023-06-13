@@ -1,7 +1,7 @@
 %% setting up the simulator
 close all; clear all;
 
-HPC=1;
+HPC=0;
 
 if HPC
     run('../COSIVINA/setpath.m') % add cosivina and jsoblab files to the matlab path
@@ -14,7 +14,7 @@ SimName = 'M1-V9';
 OutName = [SimName, datestr(now, '_yyyy-mm-dd-THHMMSS') '.csv'];
 OutName2 = [SimName, '_errors', datestr(now, '_yyyy-mm-dd-THHMMSS') '.mat'];
 
-mode = 2; %0 for batch mode; 1 for auto mode with visualization; 2 for multicore (change for to parfor around line 47)
+mode = 1; %0 for batch mode; 1 for auto mode with visualization; 2 for multicore (change for to parfor around line 47)
 
 if mode == 1
     n_reps = 1;
@@ -84,8 +84,8 @@ for subj=1:nsubj
         
         fprintf('TrialType %i\n',j);
         
-        %for i = 1:n_reps
-        parfor i = 1:n_reps
+        for i = 1:n_reps
+        %parfor i = 1:n_reps
             
             sim2 = 5;
             if (mode == 0) || (mode == 1)
