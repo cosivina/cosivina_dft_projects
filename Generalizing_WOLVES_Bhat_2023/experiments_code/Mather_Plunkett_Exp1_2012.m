@@ -292,7 +292,8 @@ for subject = 1:numSubjects
     end %block ends
      try
         OutName = [simName,num2str(subject),'_train.mat'];
-        matTrain=matfile([pwd,'\',OutName],'writable',true);
+        %matTrain=matfile([pwd,'\',OutName],'writable',true);
+        matTrain=matfile(OutName,'writable',true);
         matTrain.hcon_f = savestate_hcon_f{subject};
         matTrain.hwm_f = savestate_hwm_f{subject};
         matTrain.hwm_c = savestate_hwm_c{subject};
@@ -423,7 +424,8 @@ for subject = 1:numSubjects
          end %  test ends
         try
             OutName = [simName,num2str(subject),'_test.mat'];
-            matTest=matfile([pwd,'\',OutName],'writable',true);
+            %matTest=matfile([pwd,'\',OutName],'writable',true);
+            matTest=matfile(OutName,'writable',true);
             matTest.hcon_f = savestate_hcon_f{subject};
             matTest.hwm_f = savestate_hwm_f{subject};
             matTest.hwm_c = savestate_hwm_c{subject};

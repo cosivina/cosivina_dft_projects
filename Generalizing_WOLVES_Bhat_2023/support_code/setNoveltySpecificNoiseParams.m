@@ -15,7 +15,8 @@
           %sim.setElementParameters({['hwm_c' n ' -> wm_c' n]}, {'amplitude'}, 2.5); %H 1.5 for looking 5
           %sim.setElementParameters({['hwm_f' n ' -> wm_f' n]}, {'amplitude'}, 4.0); % F 0
           % sim.setElementParameters({['hcon_f' n ' -> con_f' n]}, {'amplitude'}, 0.3); % F 0
-          %sim.setElementParameters({['wm_f' n ' -> wm_f' n]}, {'amplitudeExc'}, 19.0); % F 0
+%          sim.setElementParameters({['wm_f' n ' -> wm_f' n]}, {'amplitudeExc'}, 26.0); % F 0
+%          sim.setElementParameters({['wm_f' n ' -> wm_f' n]}, {'amplitudeExc'}, 24.0); % F 0
 %          sim.setElementParameters({['wf' n ' -> atn_f' n]}, {'amplitude'}, 0);%3.5our average %A
           %sim.setElementParameters({['wf' n ' -> con_f' n]}, {'amplitude'}, 20);
 %          %sim.setElementParameters({['wf' n ' -> atn_c' n]}, {'amplitude'}, -0.25);%1.3our average

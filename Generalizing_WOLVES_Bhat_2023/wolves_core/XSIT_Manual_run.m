@@ -7,25 +7,26 @@ mode = 1; % set to 1 for auto/gui mode, 0 for singlebatch non-gui, and 2 for mul
 %% sample code needed to run simulator on a high performance cluster
 HPC = 0;
 if HPC
-    run('../../../COSIVINA/setpath.m') % add cosivina and jsoblab files to the matlab path
-    addpath(genpath('../../WOLVES_PsychReview_2021'));
+    run('../../../cosivina/setpath.m') % add cosivina and jsoblab files to the matlab path
+    addpath(genpath('../../Generalizing_WOLVES_Bhat_2023'));
     cd('../') % move from the wolves_core folder where you'll launch the job to the main folder
-    parpool('SlurmProfile1',96) %this will be HPC-specific
+    %parpool('SlurmProfile1',96) %this will be HPC-specific
 end
 
 gui_speed=15; %update gui after every n iterations: ideal values from 1 to 20.
 notes = ['any notes you want to take specific to this simulation'];% notes about any variable changes  
-simNamePar = ['WPR_']; % give a name to your simulation.
+simNamePar = ['Test_']; % give a name to your simulation.
+sim_seed = 1; %initialize
 %sim_seed = rng('shuffle'); %get seed for reproducibility, use rng(sim_seed) for reproduction
 createComboSim; %%%create the model, for Kachergis et al task (taskvar==7) change to, createComboSimKachergis; 
 if sim.loadSettings('wolvesPaperPR.json','changeable') == 0; disp('json file load ERROR!!'); end; % loads the parameters file
 createComboGUI;% create and initialize GUI
 createComboControls;% create and initialize GUI controls
-if (mode == 2), numSubjects = 300; tolerance = 0; % specify the number of simulations/subjects to run. 300 default 
+if (mode == 2), numSubjects = 6; tolerance = 0; % specify the number of simulations/subjects to run. 300 default 
 else,   numSubjects = 1; tolerance = 3; simNamePar = ['guiTest']; end % tolerance is used for gui's only to ensure they don't skip equality(==)conditionals
 
 %% Update Memory Build and Decay Parameters
-parBuild = 1200; parDecay = 800;  
+parBuild = 1200; parDecay = 8000;  
 setMemoryTraceTimescales(sim, parBuild, parDecay);
 
 %% TURN ON below Noise Parameters for MSHF/Mather novelty tasks (taskvars 14,15,16 below: CD target journal)
@@ -61,3 +62,4 @@ end
 
 %% Save Simulation Results 
 Results_Saving;
+

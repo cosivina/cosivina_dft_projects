@@ -10,13 +10,13 @@ plotStyle = {'k-o','b-+','g-*','c-x','r-s','m-d','y->','k:o','b:+','g:*','c:x','
 Measure = {}; Mean = {}; Standard_Error = {}; RMSE_val = [];  MAPE_val = [];
 T = table (Measure, Mean, RMSE_val, MAPE_val);
 %Experiment (Task) Variables
-simName = 'WPR_Mather_Plunkett_Exp1_2012_results'
+simName = 'Old_Mather_Plunkett_2012_results'
 xsit_result = load (simName);
 nObjects = 2;%%total number of objects 
 nBlocks=2;nTrials=3;nFeatures=2;repeats=nTrials/nObjects;  %check with auto file
 vis_Off = floor(8000/scale_factor); %t_max = 1900/scale_factor;% scale with Experiment training trial Duration
 word_On =  floor([3633 5633]/scale_factor); word_Off = floor((600+[3633 5633])/scale_factor);word_Len=floor((600)/scale_factor);
-numSubjects=size(xsit_result.test,1);xx=['Number of Subjects is ',num2str(numSubjects)]; disp(xx);% 
+numSubjects=size(xsit_result.test,1);
 
 for subject=1:numSubjects
     test_pair = xsit_result.test(subject).test_pair;

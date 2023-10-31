@@ -1,10 +1,12 @@
 #!/bin/bash
+#SBATCH --mail-type=END,FAIL   
+#SBATCH --mail-user=nfb15zpu@uea.ac.uk    
 #SBATCH --job-name=matlab-WOLVES_job  # Set job name
 #SBATCH -o matlab-WOLVES-%j.out  # Write job output to MatJob-(job_number).out
 #SBATCH -e matlab-WOLVES-%j.err  # Write job error to MatJob-(job_number).err
 #SBATCH -p ib-24-96
 #SBATCH --qos=ib
-#SBATCH --time="96:00:00"
+#SBATCH --time=7-00:00:00
 #SBATCH --mem=40GB
 #set up environment
 module add matlab/2020a

@@ -1,22 +1,22 @@
 %author: Ajaz Bhat ajaz.bhat@ubd.edu.bn
 % This script generates an output file
 %% Data Analysis File
-clear all; close all; 
-%Global Variables 
+clear all; close all;
+%Global Variables
 nFeatures=2;scale_factor=8;legendInfo=[];MIN_LOOK_DURATION=200/scale_factor;nFix_limit=10;rmseErr=0;
 %Plotting Variables
-plotStyle = {'k-o','b-+','g-*','c-x','r-s','m-d','y->','k:o','b:+','g:*','c:x','r:s','m:d','y:>','b:<','w.<'};compStyle=7;
+plotStyle = {'k:o','k-+','g-*','c-x','r-s','m-d','y->','k:o','b:+','g:*','c:x','r:s','m:d','y:>','b:<','w.<'};compStyle=7;
 %Output File Save Variables
 Measure = {}; Mean = {}; Standard_Error = {}; RMSE_Young = [];  MAPE_Young = []; RMSE_Old = [];  MAPE_Old = [];
 T = table (Measure, Mean, Standard_Error, RMSE_Young, MAPE_Young, RMSE_Old, MAPE_Old);
-            
+
 %Experiment (Task) Variables
-TASK = 'Exp1'; SIM_TYPE = {'Silent', 'Labelling'};
+TASK = 'Exp2'; SIM_TYPE = {'Silent', 'Labelling'};
 
 if strcmp (TASK ,'Exp1')
-    nObjects=31; nTestTrials=30;  TEST_DUR=6000; pre_fam_trials=1;blockSize=6;nPhases=6; 
+    nObjects=31; nTestTrials=30;  TEST_DUR=6000; pre_fam_trials=1;blockSize=6;nPhases=6;
     words_On = floor([600 3200]/scale_factor);word_Len=floor((500)/scale_factor);
-    
+
     %EMPIRICAL DATA
     mather_dataTB(1,:)     =   [56.2   52.5    53.3    58.0    56.0];%silent young
     mather_dataTB(2,:)     =   [50.4   53.5    57.9    51.5    57.0];%labelling young
@@ -45,22 +45,90 @@ else
     empirical_mean_old= [mather_dataTB(1,:)  mather_dataTB(2,:)];
 end
 vis_On=1; vis_Off = floor(TEST_DUR/scale_factor);trial_Blocks = floor(nTestTrials/blockSize);
-novelty_pref_sim_mean=[]; novelty_pref_sim_SE =[]; empirical_mean_i =[];               
+novelty_pref_sim_mean=[]; novelty_pref_sim_SE =[]; empirical_mean_i =[];
 for i=1:2
-    %% Raw Data File Name 
+    %% Raw Data File Name
     if i==1
         label=SIM_TYPE{1};
-        simName = 'Young_Silent_MSHP_Exp1_2011_results';
+        simName = 'Old_Silent_MSHP_Exp2_2011_results';
         xsit_result = load (simName);
-        % CHECK IF FILES ARE THERE % if not( exist(simName, 'file') == 2), disp(simName);  end                       
+        % CHECK IF FILES ARE THERE % if not( exist(simName, 'file') == 2), disp(simName);  end
     else%if i==2
         label=SIM_TYPE{2};
-        simName = 'Young_Labelling_MSHP_Exp1_2011_results';
-        xsit_result = load (simName); 
+        simName = 'Old_Labelling_MSHP_Exp2_2011_results';
+        xsit_result = load (simName);
     end
     legendInfo{i}= label;
 
     numSubjects=size(xsit_result.test,1);
+
+    xsit2_result = xsit_result;
+
+    numSubjects = 40;
+    SE_group_tb = zeros(10,trial_Blocks);
+    SE_group_tp = zeros(10,nPhases);
+    for groups = 1:10
+        xsit_result.test = xsit2_result.test(randperm(numel(xsit2_result.test),numSubjects));
+
+        fam_Look=zeros(numSubjects,nTestTrials,vis_Off);
+        novel_Look=zeros(numSubjects,nTestTrials,vis_Off);
+        off_Look=zeros(numSubjects,nTestTrials,vis_Off);
+        nov_pref_TrialPhase = zeros(numSubjects,nTestTrials-pre_fam_trials,nPhases);
+        for subject=1:numSubjects
+            for trt=1:nTestTrials
+                lLook(:)= xsit_result.test(subject).historyLt(trt,vis_On:vis_Off);%full trial
+                rLook(:)= xsit_result.test(subject).historyRt(trt,vis_On:vis_Off);%
+                for j=1:length(lLook)
+                    if  (round(lLook(j)) + round(rLook(j))) > 0.5
+                        oLook(j)=0;  else; oLook(j)=1; end
+                end
+                off_Look (subject,trt,:) = oLook;
+                fam_Location = char (xsit_result.test(subject).fam_word(trt,1));
+                if ( strcmp(fam_Location,'L'))
+                    fam_Look (subject,trt,:) = lLook;
+                    novel_Look(subject,trt,:) = rLook;
+                elseif (strcmp(fam_Location,'R'))
+                    fam_Look (subject,trt,:) = rLook;
+                    novel_Look(subject,trt,:) = lLook;
+                end
+            end
+        end
+        nov_pref = (sum(novel_Look,3)./ (sum(fam_Look,3) + sum(novel_Look,3)))*100;
+        nov_pref_Phase = (novel_Look./ (fam_Look + novel_Look))*100;
+        phaseSize = vis_Off/nPhases;
+        for phase=1:nPhases
+            phaseOn = ((phase-1)*phaseSize)+1;  phaseOff = (phase*phaseSize);
+            nov_pref_TrialPhase(:,:,phase) =  mean(nov_pref_Phase(:,pre_fam_trials+1:nTestTrials,phaseOn:phaseOff),3);
+        end
+
+        nov_pref_tb=zeros(numSubjects,trial_Blocks);
+        if strcmp (TASK ,'Exp1')
+            for subject=1:numSubjects
+                for tb = 1:trial_Blocks
+                    if tb == 1
+                        nov_pref_tb(subject,tb) = mean( nov_pref(subject,(tb-1)*blockSize+1+pre_fam_trials:(tb)*blockSize), 2);
+                    else
+                        nov_pref_tb(subject,tb) = mean( nov_pref(subject,(tb-1)*blockSize+1:(tb)*blockSize), 2);
+                    end
+                end
+            end
+        else
+            for subject=1:numSubjects
+                for tb = 1:trial_Blocks
+                    nov_pref_tb(subject,tb) = mean( nov_pref(subject,(tb-1)*blockSize+1+pre_fam_trials:(tb)*blockSize+pre_fam_trials), 2);
+                end
+            end
+        end
+
+        SE_group_tb(groups,:) = (squeeze(std(nov_pref_tb))./squeeze(sqrt(length(nov_pref_tb))));
+        SE_group_tp(groups,:) = (squeeze(std(mean(nov_pref_TrialPhase,2)))./squeeze(sqrt(length(mean(nov_pref_TrialPhase,2)))));
+
+    end
+
+
+    xsit_result = xsit2_result;
+    numSubjects=size(xsit_result.test,1);
+
     fam_Look=zeros(numSubjects,nTestTrials,vis_Off);
     novel_Look=zeros(numSubjects,nTestTrials,vis_Off);
     off_Look=zeros(numSubjects,nTestTrials,vis_Off);
@@ -70,14 +138,14 @@ for i=1:2
             lLook(:)= xsit_result.test(subject).historyLt(trt,vis_On:vis_Off);%full trial
             rLook(:)= xsit_result.test(subject).historyRt(trt,vis_On:vis_Off);%
             for j=1:length(lLook)
-               if  (round(lLook(j)) + round(rLook(j))) > 0.5
-                   oLook(j)=0;  else; oLook(j)=1; end
+                if  (round(lLook(j)) + round(rLook(j))) > 0.5
+                    oLook(j)=0;  else; oLook(j)=1; end
             end
             off_Look (subject,trt,:) = oLook;
             fam_Location = char (xsit_result.test(subject).fam_word(trt,1));
             if ( strcmp(fam_Location,'L'))
                 fam_Look (subject,trt,:) = lLook;
-                novel_Look(subject,trt,:) = rLook;            
+                novel_Look(subject,trt,:) = rLook;
             elseif (strcmp(fam_Location,'R'))
                 fam_Look (subject,trt,:) = rLook;
                 novel_Look(subject,trt,:) = lLook;
@@ -92,31 +160,30 @@ for i=1:2
         nov_pref_TrialPhase(:,:,phase) =  mean(nov_pref_Phase(:,pre_fam_trials+1:nTestTrials,phaseOn:phaseOff),3);
     end
 
-   if strcmp (TASK ,'Exp1')
-       for subject=1:numSubjects
-            for tb = 1:trial_Blocks         
+    if strcmp (TASK ,'Exp1')
+        for subject=1:numSubjects
+            for tb = 1:trial_Blocks
                 if tb == 1
                     nov_pref_tb(subject,tb) = mean( nov_pref(subject,(tb-1)*blockSize+1+pre_fam_trials:(tb)*blockSize), 2);
                 else
                     nov_pref_tb(subject,tb) = mean( nov_pref(subject,(tb-1)*blockSize+1:(tb)*blockSize), 2);
                 end
             end
-       end
-   else
-       for subject=1:numSubjects
-           for tb = 1:trial_Blocks         
-                  nov_pref_tb(subject,tb) = mean( nov_pref(subject,(tb-1)*blockSize+1+pre_fam_trials:(tb)*blockSize+pre_fam_trials), 2);
-           end
-       end
-   end
+        end
+    else
+        for subject=1:numSubjects
+            for tb = 1:trial_Blocks
+                nov_pref_tb(subject,tb) = mean( nov_pref(subject,(tb-1)*blockSize+1+pre_fam_trials:(tb)*blockSize+pre_fam_trials), 2);
+            end
+        end
+    end
 
     novelty_pref_sim_mean = [novelty_pref_sim_mean squeeze(mean(nov_pref_tb))];
     novelty_pref_sim_SE   = [novelty_pref_sim_SE   squeeze(SE(nov_pref_tb))];
 
 
-
-    figure(2);%%Plot trial-block wise preferntial looking percentage to novel object during testing 
-    errorbar(squeeze(mean(nov_pref_tb)),(squeeze(std(nov_pref_tb))./squeeze(sqrt(length(nov_pref_tb)))), plotStyle{i},'LineWidth',3);%
+    figure(2);%%Plot trial-block wise preferntial looking percentage to novel object during testing
+    errorbar(squeeze(mean(nov_pref_tb)),mean(SE_group_tb), plotStyle{i},'LineWidth',3);%
     set(gca,'fontsize',18);
     legend(legendInfo);
     xlabel('Trial Block');
@@ -128,9 +195,9 @@ for i=1:2
     set(a,'LineWidth',2.0);
     grid on
 
-    figure(3);%%Plotwithin trial phase wise preferntial looking percentage to novel object during testing 
+    figure(3);%%Plotwithin trial phase wise preferntial looking percentage to novel object during testing
     hold on
-    errorbar(squeeze(mean(mean(nov_pref_TrialPhase,2))),(squeeze(std(mean(nov_pref_TrialPhase,2)))./squeeze(sqrt(length(mean(nov_pref_TrialPhase,2))))), plotStyle{i},'LineWidth',3);%
+    errorbar(squeeze(mean(mean(nov_pref_TrialPhase,2))),mean(SE_group_tp), plotStyle{i},'LineWidth',3);%
     set(gca,'fontsize',18);
     legend(legendInfo);
     xlabel('Trial Phase');
@@ -139,12 +206,13 @@ for i=1:2
     hold on
     a=hline(50,'k-');
     set(a,'LineWidth',2.0);
-    grid on 
+    grid on
+
 
 end
 
-                
-%% statistics for Output File Saving 
+
+%% statistics for Output File Saving
 mean_i =  novelty_pref_sim_mean;
 SE_i = novelty_pref_sim_SE;
 measurement_i = 'novelty preference';
@@ -161,6 +229,6 @@ writetable(T,[simName  '_Analysis.csv'])
 
 
 
-            
+
 
 
